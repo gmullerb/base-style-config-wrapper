@@ -9,7 +9,13 @@ import org.gradle.api.Project
 
 @CompileStatic
 class BaseStyleConfigWrapperPlugin implements Plugin<Project> {
+  public static final String EXTENSION_NAME = 'baseStyleConfig'
+
+  static final boolean complement(final Project project) {
+    BaseStyleConfigWrapper.addExtension(project, EXTENSION_NAME)
+  }
+
   void apply(final Project project) {
-    BaseStyleConfigWrapper.addExtension(project)
+    complement(project)
   }
 }

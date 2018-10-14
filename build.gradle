@@ -1,7 +1,7 @@
 //  Copyright (c) 2018 Gonzalo Müller Bravo.
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 plugins {
-  id 'all.shared.gradle.file-lister' version '1.0'
+  id 'all.shared.gradle.file-lister' version '1.0.1'
   id 'checkstyle'
   id 'codenarc'
   id 'com.gradle.plugin-publish' version '0.10.0'

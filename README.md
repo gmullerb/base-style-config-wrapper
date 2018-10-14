@@ -276,6 +276,24 @@ git clone https://github.com/gmullerb/base-style-config-wrapper
 
 > [1] Tests are done with [JUnit](http://junit.org) and [Mockito](http://javadoc.io/page/org.mockito/mockito-core/latest/org/mockito/Mockito.html).
 
+### Convention over Configuration
+
+All `all.shared.gradle` plugins define two classes:
+
+* _PluginName_**Plugin**: which contains the class implements `Plugin` interface.
+
+* _PluginName_**Extension**: which represent the extension of the plugin.
+
+All `all.shared.gradle` plugins have two **`static`** members:
+
+* `String EXTENSION_NAME`: This will have the name of the extension that the plugin add.
+  * if the plugin does not add an extension the this field will not exist.
+
+* `boolean complement(final Project project)`: will apply the plugin and return true if successful, false otherwise.
+  * this methods is **exactly equivalent to the instance `apply` method**, but without instantiate the class if not required.
+
+Both may be useful when applying the plugin when creating custom plugins.
+
 ## Documentation
 
 * [`CHANGELOG.md`](CHANGELOG.md): add information of notable changes for each version here, chronologically ordered [1].

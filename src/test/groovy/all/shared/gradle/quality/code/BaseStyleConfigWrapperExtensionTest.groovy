@@ -1,13 +1,15 @@
 //  Copyright (c) 2018 Gonzalo Müller Bravo.
 //  Licensed under the MIT License (MIT), see LICENSE.txt
-package all.shared.gradle.quality.code.config
+package all.shared.gradle.quality.code
+
+import all.shared.gradle.quality.code.config.BackCodeStyleConfig
+import all.shared.gradle.quality.code.config.CommonCodeStyleConfig
+import all.shared.gradle.quality.code.config.FrontCodeStyleConfig
 
 import groovy.transform.CompileStatic
 
-import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ConfigurationContainer
-import org.gradle.api.resources.ResourceHandler
 import org.gradle.api.resources.TextResource
 import org.gradle.api.resources.TextResourceFactory
 
@@ -22,26 +24,15 @@ import static org.mockito.Mockito.doReturn
 import static org.mockito.Mockito.mock
 
 @CompileStatic
-class CodeStyleConfigTest {
+class BaseStyleConfigWrapperExtensionTest {
   @Test
   void shouldBuildACodeStyleConfig() {
-    final Project mockProject = mock(Project)
-    final ResourceHandler mockHandler =  mock(ResourceHandler)
-    doReturn(mockHandler)
-      .when(mockProject)
-      .getResources()
     final TextResourceFactory mockFactory =  mock(TextResourceFactory)
-    doReturn(mockFactory)
-      .when(mockHandler)
-      .getText()
     final ConfigurationContainer mockContainer = mock(ConfigurationContainer)
-    doReturn(mockContainer)
-      .when(mockProject)
-      .getConfigurations()
     final Configuration mockConfiguration = mock(Configuration)
     doReturn(mockConfiguration)
       .when(mockContainer)
-      .getByName(eq(CodeStyleConfig.CODE_STYLE_EXTENSION))
+      .getByName(eq(BaseStyleConfigWrapperPlugin.EXTENSION_NAME))
     final TextResource mockResource = mock(TextResource)
     doReturn(mockResource)
       .when(mockFactory)
@@ -72,7 +63,7 @@ class CodeStyleConfigTest {
       .when(mockFile)
       .getPath()
 
-    final CodeStyleConfig config = CodeStyleConfig.of(mockProject)
+    final BaseStyleConfigWrapperExtension config = BaseStyleConfigWrapperExtension.of(mockFactory, mockConfiguration)
 
     assertAll([
     {

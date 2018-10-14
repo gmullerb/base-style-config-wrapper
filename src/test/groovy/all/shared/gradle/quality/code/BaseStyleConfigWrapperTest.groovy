@@ -2,8 +2,6 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code
 
-import all.shared.gradle.quality.code.config.CodeStyleConfig
-
 import groovy.transform.CompileStatic
 
 import org.gradle.api.Project
@@ -39,26 +37,26 @@ class BaseStyleConfigWrapperTest {
 
   @Test
   void shouldAddExtension() {
-    BaseStyleConfigWrapper.addExtension(spyProject)
+    BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
 
-    assertTrue(spyProject.properties[CodeStyleConfig.CODE_STYLE_EXTENSION] instanceof CodeStyleConfig)
+    assertTrue(spyProject.properties['extensionName'] instanceof BaseStyleConfigWrapperExtension)
     assertEquals(
       BaseStyleConfigWrapper.QUALITY_CONFIG_MAVEN_REPO_URL,
       ((MavenArtifactRepository) spyProject.repositories.getByName('maven')).getUrl().toString())
-    final Configuration configuration = spyProject.configurations.getByName(CodeStyleConfig.CODE_STYLE_EXTENSION)
+    final Configuration configuration = spyProject.configurations.getByName('extensionName')
     assertTrue(configuration.allDependencies
       .collect { Dependency dependency -> "$dependency.group:$dependency.name:$dependency.version" }
       .contains("$BaseStyleConfigWrapper.QUALITY_CONFIG_MAVEN_COORDINATES:+"))
-    verify(mockLogger).debug(eq('Added code-style-check extension'))
+    verify(mockLogger).debug(eq('Added base-style-config-wrapper extension'))
   }
 
   @Test
   void shouldAddExtensionWithSpecificVersion() {
     spyProject.extensions.add(BaseStyleConfigWrapper.BASE_STYLE_CONFIG_VERSION_PROPERTY, '1.0.4')
 
-    BaseStyleConfigWrapper.addExtension(spyProject)
+    BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
 
-    final Configuration configuration = spyProject.configurations.getByName(CodeStyleConfig.CODE_STYLE_EXTENSION)
+    final Configuration configuration = spyProject.configurations.getByName('extensionName')
     assertTrue(configuration.allDependencies
       .collect { Dependency dependency -> "$dependency.group:$dependency.name:$dependency.version" }
       .contains("$BaseStyleConfigWrapper.QUALITY_CONFIG_MAVEN_COORDINATES:1.0.4"))
@@ -66,10 +64,10 @@ class BaseStyleConfigWrapperTest {
 
   @Test
   void shouldNotAddExtensionWhenExtensionNameNotAvailable() {
-    spyProject.extensions.add(CodeStyleConfig.CODE_STYLE_EXTENSION, 'someValue')
+    spyProject.extensions.add('extensionName', 'someValue')
 
-    BaseStyleConfigWrapper.addExtension(spyProject)
+    BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
 
-    verify(mockLogger).error(eq('Couldn\'t add code-style-check extension'))
+    verify(mockLogger).error(eq('Couldn\'t add base-style-config-wrapper extension'))
   }
 }

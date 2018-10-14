@@ -2,8 +2,6 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code
 
-import all.shared.gradle.quality.code.config.CodeStyleConfig
-
 import groovy.transform.CompileStatic
 
 import org.gradle.api.Project
@@ -23,17 +21,17 @@ class BaseStyleConfigWrapperPluginTest {
 
     plugin.apply(testProject)
 
-    assertNotNull(testProject.properties[CodeStyleConfig.CODE_STYLE_EXTENSION])
+    assertNotNull(testProject.properties[BaseStyleConfigWrapperPlugin.EXTENSION_NAME])
   }
 
   @Test
   void shouldNotApplyPluginWhenExtensionNameNotAvailable() {
     final BaseStyleConfigWrapperPlugin plugin = new BaseStyleConfigWrapperPlugin()
     final Project testProject = ProjectBuilder.builder().build()
-    testProject.extensions.add(CodeStyleConfig.CODE_STYLE_EXTENSION, 'someValue')
+    testProject.extensions.add(BaseStyleConfigWrapperPlugin.EXTENSION_NAME, 'someValue')
 
     plugin.apply(testProject)
 
-    assertFalse(testProject.properties[CodeStyleConfig.CODE_STYLE_EXTENSION] instanceof CodeStyleConfig)
+    assertFalse(testProject.properties[BaseStyleConfigWrapperPlugin.EXTENSION_NAME] instanceof BaseStyleConfigWrapperExtension)
   }
 }
