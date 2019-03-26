@@ -12,9 +12,9 @@ import org.gradle.api.plugins.quality.PmdExtension
 
 @CompileStatic
 class BackCodeStyleConfig {
-  private final TextResource checkstyleConfig
-  private final TextResource checkstyleSuppressionConfig
-  private final TextResource pmdConfig
+  final TextResource checkstyleConfig
+  final TextResource checkstyleSuppressionConfig
+  final TextResource pmdConfig
 
   BackCodeStyleConfig(
       final TextResource checkstyleConfig,
@@ -25,15 +25,9 @@ class BackCodeStyleConfig {
     this.pmdConfig = pmdConfig
   }
 
-  TextResource getCheckstyleConfig() { checkstyleConfig }
-
   File getCheckstyleConfigFile() { checkstyleConfig.asFile() }
 
-  TextResource getCheckstyleSuppressionConfig() { checkstyleSuppressionConfig }
-
   File getCheckstyleSuppressionConfigFile() { checkstyleSuppressionConfig.asFile() }
-
-  TextResource getPmdConfig() { pmdConfig }
 
   File getPmdConfigFile() { pmdConfig.asFile() }
 

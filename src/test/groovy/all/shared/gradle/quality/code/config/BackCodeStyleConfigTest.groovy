@@ -2,6 +2,8 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code.config
 
+import all.shared.gradle.testfixtures.SpyProjectFactory
+
 import groovy.transform.CompileStatic
 
 import org.gradle.api.Project
@@ -10,7 +12,6 @@ import org.gradle.api.plugins.quality.CheckstyleExtension
 import org.gradle.api.plugins.quality.Pmd
 import org.gradle.api.plugins.quality.PmdExtension
 import org.gradle.api.resources.TextResource
-import org.gradle.testfixtures.ProjectBuilder
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
@@ -109,7 +110,7 @@ class BackCodeStyleConfigTest {
     doReturn('theFile')
       .when(mockFile)
       .getPath()
-    final Project testProject = ProjectBuilder.builder().build()
+    final Project testProject = SpyProjectFactory.build()
 
     assertAll([
     {
@@ -134,7 +135,7 @@ class BackCodeStyleConfigTest {
   void shouldComplementPmd() {
     final TextResource mockPmdConfig = mock(TextResource)
     final BackCodeStyleConfig config = new BackCodeStyleConfig(null, null, mockPmdConfig)
-    final Project testProject = ProjectBuilder.builder().build()
+    final Project testProject = SpyProjectFactory.build()
 
     assertAll([
     {

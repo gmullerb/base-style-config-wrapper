@@ -2,13 +2,14 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code.config
 
+import all.shared.gradle.testfixtures.SpyProjectFactory
+
 import groovy.transform.CompileStatic
 
 import org.gradle.api.Project
 import org.gradle.api.resources.TextResource
 import org.gradle.api.plugins.quality.CodeNarc
 import org.gradle.api.plugins.quality.CodeNarcExtension
-import org.gradle.testfixtures.ProjectBuilder
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
@@ -73,7 +74,7 @@ class CommonCodeStyleConfigTest {
   void shouldComplement() {
     final TextResource mockCodenarcConfig = mock(TextResource)
     final CommonCodeStyleConfig config = new CommonCodeStyleConfig(null, mockCodenarcConfig)
-    final Project testProject = ProjectBuilder.builder().build()
+    final Project testProject = SpyProjectFactory.build()
 
     assertAll([
     {

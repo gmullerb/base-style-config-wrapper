@@ -2,10 +2,11 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code
 
+import all.shared.gradle.testfixtures.SpyProjectFactory
+
 import groovy.transform.CompileStatic
 
 import org.gradle.api.Project
-import org.gradle.testfixtures.ProjectBuilder
 
 import org.junit.jupiter.api.Test
 
@@ -14,10 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull
 
 @CompileStatic
 class BaseStyleConfigWrapperPluginTest {
+  private final Project testProject = SpyProjectFactory.build()
+
   @Test
   void shouldApplyPluginWithTask() {
     final BaseStyleConfigWrapperPlugin plugin = new BaseStyleConfigWrapperPlugin()
-    final Project testProject = ProjectBuilder.builder().build()
 
     plugin.apply(testProject)
 
@@ -27,7 +29,6 @@ class BaseStyleConfigWrapperPluginTest {
   @Test
   void shouldNotApplyPluginWhenExtensionNameNotAvailable() {
     final BaseStyleConfigWrapperPlugin plugin = new BaseStyleConfigWrapperPlugin()
-    final Project testProject = ProjectBuilder.builder().build()
     testProject.extensions.add(BaseStyleConfigWrapperPlugin.EXTENSION_NAME, 'someValue')
 
     plugin.apply(testProject)

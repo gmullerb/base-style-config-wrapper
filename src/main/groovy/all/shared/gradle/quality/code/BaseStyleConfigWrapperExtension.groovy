@@ -13,9 +13,9 @@ import org.gradle.api.resources.TextResourceFactory
 
 @CompileStatic
 class BaseStyleConfigWrapperExtension {
-  private final BackCodeStyleConfig back
-  private final CommonCodeStyleConfig common
-  private final FrontCodeStyleConfig front
+  final BackCodeStyleConfig back
+  final CommonCodeStyleConfig common
+  final FrontCodeStyleConfig front
 
   private BaseStyleConfigWrapperExtension(
       final CommonCodeStyleConfig common,
@@ -32,7 +32,7 @@ class BaseStyleConfigWrapperExtension {
     new BaseStyleConfigWrapperExtension(
       new CommonCodeStyleConfig(
         factory.fromArchiveEntry(configuration, 'common/common-checks.xml'),
-        factory.fromArchiveEntry(configuration, 'gradle/gradle-rules.groovy')),
+        factory.fromArchiveEntry(configuration, 'groovy/groovy-rules.groovy')),
       new BackCodeStyleConfig(
         factory.fromArchiveEntry(configuration, 'back/coding-checks.xml'),
         factory.fromArchiveEntry(configuration, 'back/checks-suppressions.xml'),
@@ -41,10 +41,4 @@ class BaseStyleConfigWrapperExtension {
         factory.fromArchiveEntry(configuration, 'front/.eslintrc.json'),
         factory.fromArchiveEntry(configuration, 'front/.stylelintrc.json')))
   }
-
-  BackCodeStyleConfig getBack() { back }
-
-  CommonCodeStyleConfig getCommon() { common }
-
-  FrontCodeStyleConfig getFront() { front }
 }

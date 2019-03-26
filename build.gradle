@@ -2,6 +2,7 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 plugins {
   id 'all.shared.gradle.file-lister' version '1.0.1'
+  id 'com.github.ksoichiro.console.reporter' version '0.6.2'
   id 'checkstyle'
   id 'codenarc'
   id 'com.gradle.plugin-publish' version '0.10.0'
@@ -11,11 +12,14 @@ plugins {
 
 repositories {
   jcenter()
+  maven {
+    url 'https://dl.bintray.com/gmullerb/all.shared.gradle'
+  }
 }
 
 dependencies {
   compile gradleApi()
-  testCompile gradleTestKit()
+  testCompile 'all.shared.gradle:spy-project-factory:+'
   testCompile 'org.junit.jupiter:junit-jupiter-api:+'
   testCompile 'org.mockito:mockito-core:+'
   testRuntime 'org.junit.jupiter:junit-jupiter-engine:+'
@@ -40,6 +44,12 @@ codenarc {
   config = baseStyleConfig.common.codenarcConfig
 }
 
+consoleReporter {
+  jacoco {
+    autoconfigureCoverageConfig false
+  }
+}
+
 pluginBundle {
   website = PLUGIN_SITE
   vcsUrl = PLUGIN_SITE
@@ -51,7 +61,9 @@ pluginBundle {
 
   plugins {
     thePlugin {
-      id = project.hasProperty('PLUGIN_ID') ? property('PLUGIN_ID') : 'Set plugin id'
+      id = project.hasProperty('PLUGIN_ID')
+        ? property('PLUGIN_ID')
+        : 'Set plugin id'
       displayName = 'Base Style Configurations\' Wrapper plugin'
     }
   }
@@ -77,21 +89,60 @@ task assessGradle(type: CodeNarc) {
   group = GROUP_ASSESS
 }
 
+task assess {
+  group = GROUP_ASSESS
+  dependsOn = ['codenarcMain', 'codenarcTest']
+}
+
 // Task settings
 ////////////////
 
-assemble {
-  dependsOn += ['assessCommon', 'assessGradle', 'codenarcMain', 'codenarcTest']
+check {
+  dependsOn += ['assess']
 }
 
 test {
   // Test task settings
   useJUnitPlatform()
   // gradle task settings
-  finalizedBy jacocoTestReport, jacocoTestCoverageVerification
+  finalizedBy jacocoTestReport, jacocoTestCoverageVerification, reportCoverage
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+jacocoTestCoverageVerification {
+  // jacocoTestCoverageVerification task settings
+  violationRules {
+    rule {
+      element = 'BUNDLE'
+      limit {
+        counter = 'BRANCH'
+        value = 'COVEREDRATIO'
+        minimum = 0.925
+      }
+    }
+    rule {
+      element = 'BUNDLE'
+      limit {
+        counter = 'INSTRUCTION'
+        value = 'COVEREDRATIO'
+        minimum = 0.875
+      }
+    }
+  }
+  // gradle task settings
+  shouldRunAfter jacocoTestReport
+}
+
+reportCoverage {
+  shouldRunAfter jacocoTestReport
 }
 
 // Default task
 ///////////////
 
-defaultTasks 'build'
+defaultTasks 'assessCommon', 'assessGradle', 'build'

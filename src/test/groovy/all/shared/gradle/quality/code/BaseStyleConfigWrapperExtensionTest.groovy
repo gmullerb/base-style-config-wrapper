@@ -27,7 +27,7 @@ import static org.mockito.Mockito.mock
 class BaseStyleConfigWrapperExtensionTest {
   @Test
   void shouldBuildACodeStyleConfig() {
-    final TextResourceFactory mockFactory =  mock(TextResourceFactory)
+    final TextResourceFactory mockFactory = mock(TextResourceFactory)
     final ConfigurationContainer mockContainer = mock(ConfigurationContainer)
     final Configuration mockConfiguration = mock(Configuration)
     doReturn(mockConfiguration)
@@ -39,7 +39,7 @@ class BaseStyleConfigWrapperExtensionTest {
       .fromArchiveEntry(eq(mockConfiguration), eq('common/common-checks.xml'))
     doReturn(mockResource)
       .when(mockFactory)
-      .fromArchiveEntry(eq(mockConfiguration), eq('gradle/gradle-rules.groovy'))
+      .fromArchiveEntry(eq(mockConfiguration), eq('groovy/groovy-rules.groovy'))
     doReturn(mockResource)
       .when(mockFactory)
       .fromArchiveEntry(eq(mockConfiguration), eq('back/coding-checks.xml'))

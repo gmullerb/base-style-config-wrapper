@@ -1,10 +1,76 @@
 # Base Style Configuration Wrapper
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](/LICENSE.txt) [![Download](https://api.bintray.com/packages/gmullerb/all.shared.gradle/base-style-config-wrapper/images/download.svg?version=1.0.0)](https://bintray.com/gmullerb/all.shared.gradle/base-style-config-wrapper/1.0.0/link)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](/LICENSE.txt) [![Download](https://api.bintray.com/packages/gmullerb/all.shared.gradle/base-style-config-wrapper/images/download.svg)](https://bintray.com/gmullerb/all.shared.gradle/base-style-config-wrapper/_latestVersion) ![coverage](https://gitlab.com/gmullerb/base-style-config-wrapper/badges/master/coverage.svg)
 
 **This project offers a Gradle wrapper for [base-style-config](https://github.com/gmullerb/base-style-config) configurations**
 
 This project is licensed under the terms of the [MIT license](/LICENSE.txt).
+__________________
+
+## Quick Start
+
+1 . Apply the plugin:
+
+```gradle
+ plugins {
+   id 'all.shared.gradle.base-style-config-wrapper' version '1.0.2'
+ }
+```
+
+2 . Set the [base-style-config](https://github.com/gmullerb/base-style-config) version:
+
+`gradle.properties`:
+
+```properties
+ BASE_STYLE_CONFIG_VERSION=2.0.0
+```
+
+3 . Configure Checkstyle, PMD, Codenarc, ESlint and/or Stylelint:
+
+Checkstyle/PMD/Codenarc:
+
+`build.gradle`:
+
+Configure plugin:
+
+```gradle
+  baseStyleConfig.back.complement(checkstyle)
+  baseStyleConfig.back.complement(pmd)
+  baseStyleConfig.common.complement(codenarc)
+```
+
+or Configure each tasks:
+
+```gradle
+  baseStyleConfig.back.complement(checkstyleMain)
+  baseStyleConfig.back.complement(pmdMain)
+  baseStyleConfig.common.complement(codenarcMain)
+```
+
+ESlint/Stylelint:
+
+`build.gradle`:
+
+```gradle
+  task assessSomeESLint(type: NpmTask) {
+    args = ['run', 'someESlintTask', baseStyleConfig.front.eslintNpmConfigArg]
+  }
+  task assessSomeStylelint(type: NpmTask) {
+    args = ['run', 'someStylelintTask', baseStyleConfig.front.stylelintNpmConfigArg]
+  }
+```
+
+and
+
+`package.json`:
+
+```json
+  "scripts": {
+    "someESlintTask": "eslint --config ${npm_config_eslintConfigFile}",
+    "someStylelintTask": "stylelint --config ${npm_config_stylelintConfigFile}"
+  },
+```
+__________________
 
 ## Goals
 
@@ -17,10 +83,10 @@ Complements the Gradle project with **`baseStyleConfig`** property that provides
 * `common` with the following:
   * `checkstyleConfig`: a value which wraps [Common Checkstyle's set - common-checks.xml](https://github.com/gmullerb/base-style-config/tree/master/config/common/common-checks.xml).
   * `checkstyleConfigFile`: a value which point to the file of `checkstyleConfig`.
-  * `codenarcConfig`: a value which wraps [Codenarc's set - gradle-rules.groovy](https://github.com/gmullerb/base-style-config/tree/master/config/gradle/gradle-rules.groovy).
+  * `codenarcConfig`: a value which wraps [Codenarc's set - gradle-rules.groovy](https://github.com/gmullerb/base-style-config/tree/master/config/groovy/groovy-rules.groovy).
   * `codenarcConfigFile`: a value which point to the file of `codenarcConfig`.
-  * `complement(codenarcExtension)`: sets the `config` property of the specified [Codenarc's extension](https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.CodeNarcExtension.html) to point to [Codenarc's set - gradle-rules.groovy](https://github.com/gmullerb/base-style-config/tree/master/config/gradle/gradle-rules.groovy).
-  * `complement(codenarcTask)`: sets the `config` property of the specified [Codenarc's task](https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.CodeNarc.html) to point to [Codenarc's set - gradle-rules.groovy](https://github.com/gmullerb/base-style-config/tree/master/config/gradle/gradle-rules.groovy).
+  * `complement(codenarcExtension)`: sets the `config` property of the specified [Codenarc's extension](https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.CodeNarcExtension.html) to point to [Codenarc's set - gradle-rules.groovy](https://github.com/gmullerb/base-style-config/tree/master/config/groovy/groovy-rules.groovy).
+  * `complement(codenarcTask)`: sets the `config` property of the specified [Codenarc's task](https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.CodeNarc.html) to point to [Codenarc's set - gradle-rules.groovy](https://github.com/gmullerb/base-style-config/tree/master/config/groovy/groovy-rules.groovy).
 * `back` with the following:
   * `checkstyleConfig`: a value which wraps [Checkstyle's set - coding-checks.xml](https://github.com/gmullerb/base-style-config/tree/master/config/back/coding-checks.xml).
   * `checkstyleConfigFile`: a value which point to the file of `checkstyleConfig`.
@@ -48,6 +114,19 @@ Complements the Gradle project with **`baseStyleConfig`** property that provides
   * `stylelintConfigFile`: value which point to the file of `stylelintConfig`.
   * `stylelintNpmConfigArg`: an array that can be use directly with [`NpmTask`](https://github.com/srs/gradle-node-plugin) `args`, it contains a string, `"--stylelintConfigFile=stylelintConfigFile"`, which points to `stylelintConfigFile`.
 
+Additionally, It allows to configure the with BASE_STYLE_CONFIG_VERSION:
+
+Use `BASE_STYLE_CONFIG_VERSION` to set the [Base Style Configuration](https://github.com/gmullerb/base-style-config) version to use:
+  
+* If not set last version will be used.
+
+`gradle.properties`:
+
+```properties
+ BASE_STYLE_CONFIG_VERSION=2.0.0
+```
+__________________
+
 ## Using/Configuration
 
 ### Prerequisites
@@ -56,7 +135,7 @@ Complements the Gradle project with **`baseStyleConfig`** property that provides
 
 ### Gradle configuration
 
-Apply the plugin:
+Apply the plugin [1]:
 
 ```gradle
  plugins {
@@ -64,9 +143,11 @@ Apply the plugin:
  }
 ```
 
+> [1] Alternatively, use the [project-style-checker Gradle plugin](https://github.com/gmullerb/project-style-checker), which wraps this plugin.
+
 ### Common checkstyle configuration
 
-1. Configure plugin:
+1 . Configure plugin:
 
 ```gradle
   checkstyle {
@@ -74,7 +155,7 @@ Apply the plugin:
   }
 ```
 
-2. Define a Checkstyle task to check "all" files in the project tree, e.g.: [file-lister project - build.gradle file - assessCommon task](https://github.com/gmullerb/file-lister/blob/master/build.gradle).
+2 . Define a Checkstyle task to check "all" files in the project tree, e.g.: [file-lister project - build.gradle file - assessCommon task](https://github.com/gmullerb/file-lister/blob/master/build.gradle).
 
 ### Backend configuration
 
@@ -94,9 +175,7 @@ Apply the plugin:
   }
 ```
 
-```text
   or (short way, exactly the same):
-```
 
 ```gradle
   baseStyleConfig.back.complement(checkstyle)
@@ -117,9 +196,7 @@ Apply the plugin:
   }
 ```
 
-```text
   or (short way, exactly the same):
-```
 
 ```gradle
   baseStyleConfig.back.complement(checkstyleMain)
@@ -139,11 +216,9 @@ Apply the plugin:
   }
 ```
 
-```text
   or (short way, exactly the same):
-```
 
-```gradle
+```groovy
   baseStyleConfig.common.complement(codenarc)
 ```
 
@@ -155,22 +230,20 @@ Apply the plugin:
   }
 ```
 
-```text
   or (short way, exactly the same):
-```
 
 ```gradle
   baseStyleConfig.common.complement(codenarcMain)
 ```
 
-> Gradle and Groovy have almost the same set of rules, define in the same file, see [gradle-rules.groovy](https://github.com/gmullerb/base-style-config/blob/master/config/gradle/gradle-rules.groovy).  
+> Gradle and Groovy have almost the same set of rules, define in the same file, see [gradle-rules.groovy](https://github.com/gmullerb/base-style-config/blob/master/config/groovy/groovy-rules.groovy).  
 > A complete example in [file-lister project - build.gradle file](https://github.com/gmullerb/file-lister/blob/master/build.gradle).
 
 ### Frontend configuration
 
 ESLint:
 
-1. Add a config parameter to the respective ESLint script task, e.g.:
+1 . Add a config parameter to the respective ESLint script task, e.g.:
 - eslint script task: `someEslintTask`.
 - config parameter: `eslintConfigFile`
 
@@ -180,12 +253,15 @@ ESLint:
   },
 ```
 
-2. Set the config parameter in the respective gradle NpmTask task:
+2 . Set the config parameter in the respective gradle NpmTask task:
 
 ```gradle
   task assessSomeESLint(type: NpmTask) {
     // NpmTask task settings
-    args = ['someESlintTask', baseStyleConfig.front.eslintNpmConfigArg]
+    args = ['run', 'someESlintTask', baseStyleConfig.front.eslintNpmConfigArg]
+    // gradle task settings
+    inputs.property('configFile', baseStyleConfig.front.eslintNpmConfigArg)
+    inputs.files fileLister.obtainFullFileTree("$MAIN_FOLDER", [includes: ['*.js', '*.mjs']])
   }
 ```
 
@@ -204,7 +280,10 @@ Same for Stylelint:
 ```gradle
   task assessSomeStylelint(type: NpmTask) {
     // NpmTask task settings
-    args = ['someStylelintTask', baseStyleConfig.front.stylelintNpmConfigArg]
+    args = ['run', 'someStylelintTask', baseStyleConfig.front.stylelintNpmConfigArg]
+    // gradle task settings
+    inputs.property('configFile', baseStyleConfig.front.stylelintNpmConfigArg)
+    inputs.files fileLister.obtainFullFileTree("$MAIN_FOLDER", [includes: ['*.css']])
   }
 ```
 
@@ -212,7 +291,7 @@ Same for Stylelint:
 
 ### Gradle configuration
 
-1. Configure plugin:
+1 . Configure plugin:
 
 ```gradle
   codenarc {
@@ -220,8 +299,12 @@ Same for Stylelint:
   }
 ```
 
-2. Define a Codenarc task to check all gradle files in the project tree, e.g.: [file-lister project - build.gradle file - assessGradle task](https://github.com/gmullerb/file-lister/blob/master/build.gradle).
+2 . Define a Codenarc task to check all gradle files in the project tree, e.g.: [file-lister project - build.gradle file - assessGradle task](https://github.com/gmullerb/file-lister/blob/master/build.gradle).
 
+### Version Compatibility
+
+[Versions Compatibility Table](VERSIONS_COMPATIBILITY.md)
+__________________
 
 ## Extending/Developing
 
@@ -244,7 +327,7 @@ git clone https://github.com/gmullerb/base-style-config-wrapper
 
 * **No need**, only download and run (It's Gradle! Yes!).
 
-### Building
+### Building it
 
 * To build it:
   * `gradlew`: this will run default task, or
@@ -258,6 +341,7 @@ git clone https://github.com/gmullerb/base-style-config-wrapper
   * `assemble` task depends on these four tasks.
 
 * To test code: `gradlew test`
+  * This task is finalized with a Jacoco Report.
 
 * To get all the tasks for the project: `gradlew tasks --all`
 
@@ -278,11 +362,12 @@ git clone https://github.com/gmullerb/base-style-config-wrapper
 
 ### Convention over Configuration
 
-All `all.shared.gradle` plugins define two classes:
+All `all.shared.gradle` plugins define:
 
 * _PluginName_**Plugin**: which contains the class implements `Plugin` interface.
-
 * _PluginName_**Extension**: which represent the extension of the plugin.
+* If Tasks are define, then their names will be _TaskName_**Task**.
+* If Actions are define, then their names will be _ActionName_**Action**.
 
 All `all.shared.gradle` plugins have two **`static`** members:
 
@@ -294,6 +379,8 @@ All `all.shared.gradle` plugins have two **`static`** members:
 
 Both may be useful when applying the plugin when creating custom plugins.
 
+All `all.shared.gradle` plugins "silently" fail when the extension can not be added.
+
 ## Documentation
 
 * [`CHANGELOG.md`](CHANGELOG.md): add information of notable changes for each version here, chronologically ordered [1].
@@ -303,6 +390,13 @@ Both may be useful when applying the plugin when creating custom plugins.
 ## License
 
 [MIT License](/LICENSE.txt)
+__________________
+
+## Remember
+
+* Use code style verification tools => Encourage Best Practices and Usability.
+* Start testing early => Encourage Reliability and Maintainability.
+* Code Review everything => Encourage Functional suitability, Performance Efficiency and Team work.
 
 ## Additional words
 
@@ -310,5 +404,16 @@ Don't forget:
 
 * **Love what you do**.
 * **Learn everyday**.
+* **Learn yourself**.
 * **Share your knowledge**.
 * **Learn from the past, dream on the future, live and enjoy the present to the max!**.
+
+At life:
+
+* Let's act, not complain.
+* Be flexible.
+
+At work:
+
+* Let's give solutions, not questions.
+* Aim to simplicity not intellectualism.

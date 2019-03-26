@@ -8,10 +8,10 @@ import org.gradle.api.resources.TextResource
 
 @CompileStatic
 class FrontCodeStyleConfig {
-  private final TextResource eslintConfig
-  private final String eslintNpmConfigArg
-  private final TextResource stylelintConfig
-  private final String stylelintNpmConfigArg
+  final TextResource eslintConfig
+  final String eslintNpmConfigArg
+  final TextResource stylelintConfig
+  final String stylelintNpmConfigArg
 
   private FrontCodeStyleConfig(
       final TextResource eslintConfig,
@@ -34,15 +34,7 @@ class FrontCodeStyleConfig {
       "--stylelintConfigFile=${stylelintConfig.asFile().path}")
   }
 
-  TextResource getEslintConfig() { eslintConfig }
-
   File getEslintConfigFile() { eslintConfig.asFile() }
 
-  String getEslintNpmConfigArg() { eslintNpmConfigArg }
-
-  TextResource getStylelintConfig() { stylelintConfig }
-
   File getStylelintConfigFile() { stylelintConfig.asFile() }
-
-  String getStylelintNpmConfigArg() { stylelintNpmConfigArg }
 }

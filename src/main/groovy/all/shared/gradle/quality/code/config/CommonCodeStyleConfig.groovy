@@ -10,8 +10,8 @@ import org.gradle.api.plugins.quality.CodeNarcExtension
 
 @CompileStatic
 class CommonCodeStyleConfig {
-  private final TextResource codenarcConfig
-  private final TextResource checkstyleConfig
+  final TextResource codenarcConfig
+  final TextResource checkstyleConfig
 
   CommonCodeStyleConfig(
       final TextResource checkstyleConfig,
@@ -20,11 +20,7 @@ class CommonCodeStyleConfig {
     this.checkstyleConfig = checkstyleConfig
   }
 
-  TextResource getCodenarcConfig() { codenarcConfig }
-
   File getCodenarcConfigFile() { codenarcConfig.asFile() }
-
-  TextResource getCheckstyleConfig() { checkstyleConfig }
 
   File getCheckstyleConfigFile() { checkstyleConfig.asFile() }
 
