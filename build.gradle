@@ -1,6 +1,7 @@
 //  Copyright (c) 2018 Gonzalo Müller Bravo.
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 plugins {
+  id 'all.shared.gradle.base-style-config-wrapper'
   id 'all.shared.gradle.file-lister' version '1.0.1'
   id 'com.github.ksoichiro.console.reporter' version '0.6.2'
   id 'checkstyle'
@@ -27,22 +28,10 @@ dependencies {
 
 final PLUGIN_SITE = 'https://github.com/gmullerb/base-style-config-wrapper/'
 
-apply plugin: 'all.shared.gradle.base-style-config-wrapper'
-
 final allFilesInTree = fileLister.obtainPartialFileTree()
 
 // Plugin settings
 //////////////////
-
-checkstyle {
-  toolVersion = CHECKSTYLE_VERSION
-  config = baseStyleConfig.common.checkstyleConfig
-}
-
-codenarc {
-  toolVersion = CODENARC_VERSION
-  config = baseStyleConfig.back.codenarcConfig
-}
 
 consoleReporter {
   jacoco {
@@ -75,6 +64,7 @@ pluginBundle {
 task assessCommon (type: Checkstyle) {
   // Checkstyle task settings
   classpath = files('dummy') // Required by Checkstyle, Not required for Checker modules
+  config = baseStyleConfig.common.checkstyleConfig
   source = allFilesInTree
   // gradle task settings
   description = 'Run Common Checkstyle analysis for all files.'
@@ -96,6 +86,10 @@ task assess {
 
 // Task settings
 ////////////////
+
+codenarcTest {
+  mustRunAfter = ['compileTestGroovy']
+}
 
 check {
   dependsOn += ['assess']

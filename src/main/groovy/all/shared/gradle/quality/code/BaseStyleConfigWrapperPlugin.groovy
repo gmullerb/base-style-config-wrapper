@@ -2,6 +2,8 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code
 
+import all.shared.gradle.quality.code.complement.BaseStyleConfigWrapperComplementAction
+
 import groovy.transform.CompileStatic
 
 import org.gradle.api.Plugin
@@ -12,7 +14,11 @@ class BaseStyleConfigWrapperPlugin implements Plugin<Project> {
   public static final String EXTENSION_NAME = 'baseStyleConfig'
 
   static final boolean complement(final Project project) {
-    BaseStyleConfigWrapper.addExtension(project, EXTENSION_NAME)
+    final BaseStyleConfigWrapperExtension extension = BaseStyleConfigWrapper.addExtension(project, EXTENSION_NAME)
+
+    if (extension) {
+      project.afterEvaluate(new BaseStyleConfigWrapperComplementAction(extension))
+    }
   }
 
   void apply(final Project project) {

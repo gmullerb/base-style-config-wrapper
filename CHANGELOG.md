@@ -1,5 +1,14 @@
 # Base Style Config Wrapper Change Log
 
+## 2.0.0 - April 2019
+
+* Breaking changes:
+  * Moves groovy configuration from `CommonCodeStyleConfig` to `BackCodeStyleConfig`.
+  * Automatically sets pmd, codenarc, checkstyle version, when properties `CHECKSTYLE_VERSION`, `PMD_VERSION` & `CODENARC_VERSION` are present, respectively.
+  * Automatically complements pmd, codenarc, checkstyle when `autoComplement` is set to true (which is the default).
+* Upgrades versions.
+* Updates README file.
+
 ## 1.0.2 - March 2019
 
 * Updates main code to work with base-style-config:2.0.0.

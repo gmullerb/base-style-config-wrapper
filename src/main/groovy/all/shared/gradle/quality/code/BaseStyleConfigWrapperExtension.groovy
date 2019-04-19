@@ -17,6 +17,8 @@ class BaseStyleConfigWrapperExtension {
   final CommonCodeStyleConfig common
   final FrontCodeStyleConfig front
 
+  boolean autoComplement = true
+
   protected BaseStyleConfigWrapperExtension(
       final CommonCodeStyleConfig common,
       final BackCodeStyleConfig back,

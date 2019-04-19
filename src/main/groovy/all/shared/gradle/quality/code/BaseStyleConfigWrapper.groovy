@@ -16,19 +16,17 @@ class BaseStyleConfigWrapper {
 
   private BaseStyleConfigWrapper() { }
 
-  static final boolean addExtension(final Project project, final String extensionName) {
+  static final BaseStyleConfigWrapperExtension addExtension(final Project project, final String extensionName) {
     if (project.extensions.findByName(extensionName) == null) {
       final Configuration configuration = project.configurations.maybeCreate(extensionName)
       project.repositories.maven { MavenArtifactRepository mavenRepo -> mavenRepo.url = QUALITY_CONFIG_MAVEN_REPO_URL }
       project.dependencies.add(extensionName,
         "$QUALITY_CONFIG_MAVEN_COORDINATES:${project.findProperty(BASE_STYLE_CONFIG_VERSION_PROPERTY) ?: '+'}")
-      project.extensions.add(extensionName, BaseStyleConfigWrapperExtension.of(project.resources.text, configuration))
+      final BaseStyleConfigWrapperExtension extension = BaseStyleConfigWrapperExtension.of(project.resources.text, configuration)
+      project.extensions.add(extensionName, extension)
       project.logger.debug('Added base-style-config-wrapper extension')
-      true
+      return extension
     }
-    else {
-      project.logger.error('Couldn\'t add base-style-config-wrapper extension')
-      false
-    }
+    project.logger.error('Couldn\'t add base-style-config-wrapper extension')
   }
 }

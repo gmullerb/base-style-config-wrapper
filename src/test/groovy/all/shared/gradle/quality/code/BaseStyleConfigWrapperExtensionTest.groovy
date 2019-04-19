@@ -18,13 +18,14 @@ import org.junit.jupiter.api.function.Executable
 
 import static org.junit.jupiter.api.Assertions.assertAll
 import static org.junit.jupiter.api.Assertions.assertNotNull
+import static org.junit.jupiter.api.Assertions.assertTrue
 
-import static org.mockito.Matchers.eq
+import static org.mockito.ArgumentMatchers.eq
 import static org.mockito.Mockito.doReturn
 import static org.mockito.Mockito.mock
 
 @CompileStatic
-class BaseStyleConfigWrapperExtensionTest {
+final class BaseStyleConfigWrapperExtensionTest {
   @Test
   void shouldBuildACodeStyleConfig() {
     final TextResourceFactory mockFactory = mock(TextResourceFactory)
@@ -65,6 +66,7 @@ class BaseStyleConfigWrapperExtensionTest {
 
     final BaseStyleConfigWrapperExtension config = BaseStyleConfigWrapperExtension.of(mockFactory, mockConfiguration)
 
+    assertTrue(config.autoComplement)
     assertAll([
     {
       final CommonCodeStyleConfig result = config.getCommon()

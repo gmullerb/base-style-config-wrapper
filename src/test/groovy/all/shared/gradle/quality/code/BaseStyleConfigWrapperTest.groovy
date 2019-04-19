@@ -14,19 +14,22 @@ import org.gradle.api.artifacts.Dependency
 import org.junit.jupiter.api.Test
 
 import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.junit.jupiter.api.Assertions.assertNotNull
+import static org.junit.jupiter.api.Assertions.assertNull
 import static org.junit.jupiter.api.Assertions.assertTrue
 
-import static org.mockito.Matchers.eq
+import static org.mockito.ArgumentMatchers.eq
 import static org.mockito.Mockito.verify
 
 @CompileStatic
-class BaseStyleConfigWrapperTest {
+final class BaseStyleConfigWrapperTest {
   private final Project spyProject = SpyProjectFactory.build()
 
   @Test
   void shouldAddExtension() {
-    BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
+    final BaseStyleConfigWrapperExtension result = BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
 
+    assertNotNull(result)
     assertTrue(spyProject.properties['extensionName'] instanceof BaseStyleConfigWrapperExtension)
     assertEquals(
       BaseStyleConfigWrapper.QUALITY_CONFIG_MAVEN_REPO_URL,
@@ -45,8 +48,9 @@ class BaseStyleConfigWrapperTest {
   void shouldAddExtensionWithSpecificVersion() {
     spyProject.extensions.add(BaseStyleConfigWrapper.BASE_STYLE_CONFIG_VERSION_PROPERTY, '1.0.4')
 
-    BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
+    final BaseStyleConfigWrapperExtension result = BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
 
+    assertNotNull(result)
     final Configuration configuration = spyProject.configurations.getByName('extensionName')
     assertTrue(configuration.allDependencies.stream()
       .anyMatch { final Dependency dependency ->
@@ -57,8 +61,9 @@ class BaseStyleConfigWrapperTest {
   void shouldNotAddExtensionWhenExtensionNameNotAvailable() {
     spyProject.extensions.add('extensionName', 'someValue')
 
-    BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
+    final BaseStyleConfigWrapperExtension result = BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
 
+    assertNull(result)
     verify(spyProject.logger)
       .error(eq('Couldn\'t add base-style-config-wrapper extension'))
   }
