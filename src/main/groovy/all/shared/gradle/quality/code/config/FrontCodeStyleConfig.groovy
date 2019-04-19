@@ -13,7 +13,7 @@ class FrontCodeStyleConfig {
   final TextResource stylelintConfig
   final String stylelintNpmConfigArg
 
-  private FrontCodeStyleConfig(
+  protected FrontCodeStyleConfig(
       final TextResource eslintConfig,
       final String eslintNpmConfigArg,
       final TextResource stylelintConfig,

@@ -16,7 +16,7 @@ class BaseStyleConfigWrapper {
 
   private BaseStyleConfigWrapper() { }
 
-  static boolean addExtension(final Project project, final String extensionName) {
+  static final boolean addExtension(final Project project, final String extensionName) {
     if (project.extensions.findByName(extensionName) == null) {
       final Configuration configuration = project.configurations.maybeCreate(extensionName)
       project.repositories.maven { MavenArtifactRepository mavenRepo -> mavenRepo.url = QUALITY_CONFIG_MAVEN_REPO_URL }

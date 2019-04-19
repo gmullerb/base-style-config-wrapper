@@ -17,7 +17,7 @@ class BaseStyleConfigWrapperExtension {
   final CommonCodeStyleConfig common
   final FrontCodeStyleConfig front
 
-  private BaseStyleConfigWrapperExtension(
+  protected BaseStyleConfigWrapperExtension(
       final CommonCodeStyleConfig common,
       final BackCodeStyleConfig back,
       final FrontCodeStyleConfig front) {
@@ -31,12 +31,12 @@ class BaseStyleConfigWrapperExtension {
       final Configuration configuration) {
     new BaseStyleConfigWrapperExtension(
       new CommonCodeStyleConfig(
-        factory.fromArchiveEntry(configuration, 'common/common-checks.xml'),
-        factory.fromArchiveEntry(configuration, 'groovy/groovy-rules.groovy')),
+        factory.fromArchiveEntry(configuration, 'common/common-checks.xml')),
       new BackCodeStyleConfig(
         factory.fromArchiveEntry(configuration, 'back/coding-checks.xml'),
         factory.fromArchiveEntry(configuration, 'back/checks-suppressions.xml'),
-        factory.fromArchiveEntry(configuration, 'back/coding-rules.xml')),
+        factory.fromArchiveEntry(configuration, 'back/coding-rules.xml'),
+        factory.fromArchiveEntry(configuration, 'groovy/groovy-rules.groovy')),
       FrontCodeStyleConfig.of(
         factory.fromArchiveEntry(configuration, 'front/.eslintrc.json'),
         factory.fromArchiveEntry(configuration, 'front/.stylelintrc.json')))
