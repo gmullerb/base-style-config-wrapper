@@ -26,12 +26,12 @@ import static org.mockito.Mockito.doReturn
 import static org.mockito.Mockito.mock
 
 @CompileStatic
-class BackCodeStyleConfigTest {
+class JavaCodeStyleConfigTest {
 
   @Test
   void shouldGetCheckstyleConfig() {
     final TextResource mockCheckstyleConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(mockCheckstyleConfig, null, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, null, null, null)
 
     final TextResource result = config.getCheckstyleConfig()
 
@@ -41,7 +41,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldGetCheckstyleConfigFile() {
     final TextResource mockCheckstyleConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(mockCheckstyleConfig, null, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, null, null, null)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockCheckstyleConfig)
@@ -55,7 +55,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldGetCheckstyleSuppressionConfig() {
     final TextResource mockCheckstyleSuppressionConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null, null)
 
     final TextResource result = config.getCheckstyleSuppressionConfig()
 
@@ -65,7 +65,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldGetCheckstyleSuppressionConfigFile() {
     final TextResource mockCheckstyleSuppressionConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null, null)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockCheckstyleSuppressionConfig)
@@ -79,7 +79,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldGetPmdConfig() {
     final TextResource mockPmdConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, null, mockPmdConfig, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig, null)
 
     final TextResource result = config.getPmdConfig()
 
@@ -89,7 +89,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldGetPmdConfigFile() {
     final TextResource mockPmdConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, null, mockPmdConfig, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig, null)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockPmdConfig)
@@ -104,7 +104,7 @@ class BackCodeStyleConfigTest {
   void shouldComplementCheckstyle() {
     final TextResource mockCheckstyleConfig = mock(TextResource)
     final TextResource mockCheckstyleSuppressionConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(mockCheckstyleConfig, mockCheckstyleSuppressionConfig, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, mockCheckstyleSuppressionConfig, null, null)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockCheckstyleSuppressionConfig)
@@ -136,7 +136,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldComplementPmd() {
     final TextResource mockPmdConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, null, mockPmdConfig, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig, null)
     final Project testProject = SpyProjectFactory.build()
 
     assertAll([
@@ -161,7 +161,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldGetCodenarcConfig() {
     final TextResource mockCodenarcConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, null, null, mockCodenarcConfig)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, null, mockCodenarcConfig)
 
     final TextResource result = config.getCodenarcConfig()
 
@@ -171,7 +171,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldGetCodenarcConfigFile() {
     final TextResource mockCodenarcConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, null, null, mockCodenarcConfig)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, null, mockCodenarcConfig)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockCodenarcConfig)
@@ -185,7 +185,7 @@ class BackCodeStyleConfigTest {
   @Test
   void shouldComplement() {
     final TextResource mockCodenarcConfig = mock(TextResource)
-    final BackCodeStyleConfig config = new BackCodeStyleConfig(null, null, null, mockCodenarcConfig)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, null, mockCodenarcConfig)
     final Project testProject = SpyProjectFactory.build()
 
     assertAll([

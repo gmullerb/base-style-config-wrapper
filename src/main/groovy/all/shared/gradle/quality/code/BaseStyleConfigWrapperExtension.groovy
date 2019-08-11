@@ -2,7 +2,7 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code
 
-import all.shared.gradle.quality.code.config.BackCodeStyleConfig
+import all.shared.gradle.quality.code.config.JavaCodeStyleConfig
 import all.shared.gradle.quality.code.config.CommonCodeStyleConfig
 import all.shared.gradle.quality.code.config.FrontCodeStyleConfig
 
@@ -13,7 +13,7 @@ import org.gradle.api.resources.TextResourceFactory
 
 @CompileStatic
 class BaseStyleConfigWrapperExtension {
-  final BackCodeStyleConfig java
+  final JavaCodeStyleConfig java
   final CommonCodeStyleConfig common
   final FrontCodeStyleConfig js
 
@@ -21,7 +21,7 @@ class BaseStyleConfigWrapperExtension {
 
   protected BaseStyleConfigWrapperExtension(
       final CommonCodeStyleConfig common,
-      final BackCodeStyleConfig java,
+      final JavaCodeStyleConfig java,
       final FrontCodeStyleConfig js) {
     this.java = java
     this.common = common
@@ -34,7 +34,7 @@ class BaseStyleConfigWrapperExtension {
     new BaseStyleConfigWrapperExtension(
       new CommonCodeStyleConfig(
         factory.fromArchiveEntry(configuration, 'common/common-checks.xml')),
-      new BackCodeStyleConfig(
+      new JavaCodeStyleConfig(
         factory.fromArchiveEntry(configuration, 'java/coding-checks.xml'),
         factory.fromArchiveEntry(configuration, 'java/checks-suppressions.xml'),
         factory.fromArchiveEntry(configuration, 'java/coding-rules.xml'),

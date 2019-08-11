@@ -3,7 +3,7 @@
 package all.shared.gradle.quality.code.complement
 
 import all.shared.gradle.quality.code.BaseStyleConfigWrapperExtension
-import all.shared.gradle.quality.code.config.BackCodeStyleConfig
+import all.shared.gradle.quality.code.config.JavaCodeStyleConfig
 import all.shared.gradle.testfixtures.SpyProjectFactory
 
 import groovy.transform.CompileStatic
@@ -33,7 +33,7 @@ final class BaseStyleConfigWrapperComplementActionTest {
   private final TextResource checkstyleSuppressionConfig = mock(TextResource)
   private final TextResource pmdConfig = mock(TextResource)
   private final TextResource codenarcConfig = mock(TextResource)
-  private final BackCodeStyleConfig spyBackConfig = spy(new BackCodeStyleConfig(
+  private final JavaCodeStyleConfig spyBackConfig = spy(new JavaCodeStyleConfig(
     checkstyleConfig,
     checkstyleSuppressionConfig,
     pmdConfig,

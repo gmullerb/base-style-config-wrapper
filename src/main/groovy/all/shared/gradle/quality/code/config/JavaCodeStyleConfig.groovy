@@ -13,13 +13,13 @@ import org.gradle.api.plugins.quality.Pmd
 import org.gradle.api.plugins.quality.PmdExtension
 
 @CompileStatic
-class BackCodeStyleConfig {
+class JavaCodeStyleConfig {
   final TextResource checkstyleConfig
   final TextResource checkstyleSuppressionConfig
   final TextResource pmdConfig
   final TextResource codenarcConfig
 
-  BackCodeStyleConfig(
+  JavaCodeStyleConfig(
       final TextResource checkstyleConfig,
       final TextResource checkstyleSuppressionConfig,
       final TextResource pmdConfig,

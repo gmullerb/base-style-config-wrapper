@@ -2,7 +2,7 @@
 //  Licensed under the MIT License (MIT), see LICENSE.txt
 package all.shared.gradle.quality.code
 
-import all.shared.gradle.quality.code.config.BackCodeStyleConfig
+import all.shared.gradle.quality.code.config.JavaCodeStyleConfig
 import all.shared.gradle.quality.code.config.CommonCodeStyleConfig
 import all.shared.gradle.quality.code.config.FrontCodeStyleConfig
 
@@ -74,7 +74,7 @@ final class BaseStyleConfigWrapperExtensionTest {
       assertNotNull(result)
     } as Executable,
     {
-      final BackCodeStyleConfig result = config.getJava()
+      final JavaCodeStyleConfig result = config.getJava()
 
       assertNotNull(result)
     } as Executable,
