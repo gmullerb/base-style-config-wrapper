@@ -10,31 +10,31 @@ import org.gradle.api.resources.TextResource
 class FrontCodeStyleConfig {
   final TextResource eslintConfig
   final String eslintNpmConfigArg
-  final TextResource stylelintConfig
-  final String stylelintNpmConfigArg
+  final TextResource tsEslintConfig
+  final String tsEslintNpmConfigArg
 
   protected FrontCodeStyleConfig(
       final TextResource eslintConfig,
       final String eslintNpmConfigArg,
-      final TextResource stylelintConfig,
-      final String stylelintNpmConfigArg) {
+      final TextResource tsEslintConfig,
+      final String tsEslintNpmConfigArg) {
     this.eslintConfig = eslintConfig
     this.eslintNpmConfigArg = eslintNpmConfigArg
-    this.stylelintConfig = stylelintConfig
-    this.stylelintNpmConfigArg = stylelintNpmConfigArg
+    this.tsEslintConfig = tsEslintConfig
+    this.tsEslintNpmConfigArg = tsEslintNpmConfigArg
   }
 
   static final FrontCodeStyleConfig of(
       final TextResource eslintConfig,
-      final TextResource stylelintConfig) {
+      final TextResource tsEslintConfig) {
     new FrontCodeStyleConfig(
       eslintConfig,
       "--eslintConfigFile=${eslintConfig.asFile().path}",
-      stylelintConfig,
-      "--stylelintConfigFile=${stylelintConfig.asFile().path}")
+      tsEslintConfig,
+      "--tsEslintConfigFile=${tsEslintConfig.asFile().path}")
   }
 
   File getEslintConfigFile() { eslintConfig.asFile() }
 
-  File getStylelintConfigFile() { stylelintConfig.asFile() }
+  File getTsEslintConfigFile() { tsEslintConfig.asFile() }
 }

@@ -46,7 +46,7 @@ final class BaseStyleConfigWrapperTest {
 
   @Test
   void shouldAddExtensionWithSpecificVersion() {
-    spyProject.extensions.add(BaseStyleConfigWrapper.BASE_STYLE_CONFIG_VERSION_PROPERTY, '1.0.4')
+    spyProject.extensions.add(BaseStyleConfigWrapper.BASE_STYLE_CONFIG_VERSION_PROPERTY, '3.0.0')
 
     final BaseStyleConfigWrapperExtension result = BaseStyleConfigWrapper.addExtension(spyProject, 'extensionName')
 
@@ -54,7 +54,7 @@ final class BaseStyleConfigWrapperTest {
     final Configuration configuration = spyProject.configurations.getByName('extensionName')
     assertTrue(configuration.allDependencies.stream()
       .anyMatch { final Dependency dependency ->
-        "$dependency.group:$dependency.name:$dependency.version" == "$BaseStyleConfigWrapper.QUALITY_CONFIG_MAVEN_COORDINATES:1.0.4" })
+        "$dependency.group:$dependency.name:$dependency.version" == "$BaseStyleConfigWrapper.QUALITY_CONFIG_MAVEN_COORDINATES:3.0.0" })
   }
 
   @Test

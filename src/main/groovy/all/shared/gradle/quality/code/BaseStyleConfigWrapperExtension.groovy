@@ -13,19 +13,19 @@ import org.gradle.api.resources.TextResourceFactory
 
 @CompileStatic
 class BaseStyleConfigWrapperExtension {
-  final BackCodeStyleConfig back
+  final BackCodeStyleConfig java
   final CommonCodeStyleConfig common
-  final FrontCodeStyleConfig front
+  final FrontCodeStyleConfig js
 
   boolean autoComplement = true
 
   protected BaseStyleConfigWrapperExtension(
       final CommonCodeStyleConfig common,
-      final BackCodeStyleConfig back,
-      final FrontCodeStyleConfig front) {
-    this.back = back
+      final BackCodeStyleConfig java,
+      final FrontCodeStyleConfig js) {
+    this.java = java
     this.common = common
-    this.front = front
+    this.js = js
   }
 
   static final BaseStyleConfigWrapperExtension of(
@@ -35,12 +35,12 @@ class BaseStyleConfigWrapperExtension {
       new CommonCodeStyleConfig(
         factory.fromArchiveEntry(configuration, 'common/common-checks.xml')),
       new BackCodeStyleConfig(
-        factory.fromArchiveEntry(configuration, 'back/coding-checks.xml'),
-        factory.fromArchiveEntry(configuration, 'back/checks-suppressions.xml'),
-        factory.fromArchiveEntry(configuration, 'back/coding-rules.xml'),
+        factory.fromArchiveEntry(configuration, 'java/coding-checks.xml'),
+        factory.fromArchiveEntry(configuration, 'java/checks-suppressions.xml'),
+        factory.fromArchiveEntry(configuration, 'java/coding-rules.xml'),
         factory.fromArchiveEntry(configuration, 'groovy/groovy-rules.groovy')),
       FrontCodeStyleConfig.of(
-        factory.fromArchiveEntry(configuration, 'front/.eslintrc.json'),
-        factory.fromArchiveEntry(configuration, 'front/.stylelintrc.json')))
+        factory.fromArchiveEntry(configuration, 'js/.eslintrc.json'),
+        factory.fromArchiveEntry(configuration, 'js/.typescript-eslintrc.json')))
   }
 }

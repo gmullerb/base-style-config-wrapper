@@ -43,19 +43,19 @@ final class BaseStyleConfigWrapperExtensionTest {
       .fromArchiveEntry(eq(mockConfiguration), eq('groovy/groovy-rules.groovy'))
     doReturn(mockResource)
       .when(mockFactory)
-      .fromArchiveEntry(eq(mockConfiguration), eq('back/coding-checks.xml'))
+      .fromArchiveEntry(eq(mockConfiguration), eq('java/coding-checks.xml'))
     doReturn(mockResource)
       .when(mockFactory)
-      .fromArchiveEntry(eq(mockConfiguration), eq('back/checks-suppressions.xml'))
+      .fromArchiveEntry(eq(mockConfiguration), eq('java/checks-suppressions.xml'))
     doReturn(mockResource)
       .when(mockFactory)
-      .fromArchiveEntry(eq(mockConfiguration), eq('back/coding-rules.xml'))
+      .fromArchiveEntry(eq(mockConfiguration), eq('java/coding-rules.xml'))
     doReturn(mockResource)
       .when(mockFactory)
-      .fromArchiveEntry(eq(mockConfiguration), eq('front/.eslintrc.json'))
+      .fromArchiveEntry(eq(mockConfiguration), eq('js/.eslintrc.json'))
     doReturn(mockResource)
       .when(mockFactory)
-      .fromArchiveEntry(eq(mockConfiguration), eq('front/.stylelintrc.json'))
+      .fromArchiveEntry(eq(mockConfiguration), eq('js/.typescript-eslintrc.json'))
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockResource)
@@ -74,12 +74,12 @@ final class BaseStyleConfigWrapperExtensionTest {
       assertNotNull(result)
     } as Executable,
     {
-      final BackCodeStyleConfig result = config.getBack()
+      final BackCodeStyleConfig result = config.getJava()
 
       assertNotNull(result)
     } as Executable,
     {
-      final FrontCodeStyleConfig result = config.getFront()
+      final FrontCodeStyleConfig result = config.getJs()
 
       assertNotNull(result)
     } as Executable])

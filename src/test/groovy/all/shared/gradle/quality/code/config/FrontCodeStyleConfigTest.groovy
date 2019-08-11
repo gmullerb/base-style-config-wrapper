@@ -17,23 +17,23 @@ import static org.mockito.Mockito.mock
 @CompileStatic
 class FrontCodeStyleConfigTest {
   private final TextResource mockEslintConfig = mock(TextResource)
-  private final TextResource mockStylelintConfig = mock(TextResource)
+  private final TextResource mockTsEslintConfig = mock(TextResource)
   private final File mockEslintConfigFile = mock(File)
-  private final File mockStylelintConfigFile = mock(File)
+  private final File mockTsEslintConfigFile = mock(File)
 
   @BeforeEach
   void beforeEachTest() {
     doReturn(mockEslintConfigFile)
       .when(mockEslintConfig)
       .asFile()
-    doReturn(mockStylelintConfigFile)
-      .when(mockStylelintConfig)
+    doReturn(mockTsEslintConfigFile)
+      .when(mockTsEslintConfig)
       .asFile()
   }
 
   @Test
   void shouldGetEslintConfig() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockStylelintConfig)
+    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final TextResource result = config.getEslintConfig()
 
@@ -42,7 +42,7 @@ class FrontCodeStyleConfigTest {
 
   @Test
   void shouldGetEslintConfig1() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockStylelintConfig)
+    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final TextResource result = config.eslintConfig
 
@@ -51,7 +51,7 @@ class FrontCodeStyleConfigTest {
 
   @Test
   void shouldGetEslintConfigFile() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockStylelintConfig)
+    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final File result = config.getEslintConfigFile()
 
@@ -63,7 +63,7 @@ class FrontCodeStyleConfigTest {
     doReturn('file')
       .when(mockEslintConfigFile)
       .getPath()
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockStylelintConfig)
+    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final String result = config.getEslintNpmConfigArg()
 
@@ -71,32 +71,32 @@ class FrontCodeStyleConfigTest {
   }
 
   @Test
-  void shouldGetStylelintConfig() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockStylelintConfig)
+  void shouldGetTsEslintConfig() {
+    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
-    final TextResource result = config.getStylelintConfig()
+    final TextResource result = config.getTsEslintConfig()
 
-    assertEquals(mockStylelintConfig, result)
+    assertEquals(mockTsEslintConfig, result)
   }
 
   @Test
-  void shouldGetStylelintConfigFile() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockStylelintConfig)
+  void shouldGetTsEslintConfigFile() {
+    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
-    final File result = config.getStylelintConfigFile()
+    final File result = config.getTsEslintConfigFile()
 
-    assertEquals(mockStylelintConfigFile, result)
+    assertEquals(mockTsEslintConfigFile, result)
   }
 
   @Test
   void shouldGetStylelintNpmConfigArgs() {
     doReturn('file')
-      .when(mockStylelintConfigFile)
+      .when(mockTsEslintConfigFile)
       .getPath()
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockStylelintConfig)
+    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
-    final String result = config.getStylelintNpmConfigArg()
+    final String result = config.getTsEslintNpmConfigArg()
 
-    assertEquals('--stylelintConfigFile=file', result)
+    assertEquals('--tsEslintConfigFile=file', result)
   }
 }

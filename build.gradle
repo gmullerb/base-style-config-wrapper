@@ -44,9 +44,11 @@ pluginBundle {
   vcsUrl = PLUGIN_SITE
   description = 'A wrapper for \'base-style-config\' configurations'
   tags = ['base-style-config', 'code style', 'coding style', 'coding standards', 'best practices',
-    'checkstyle', 'pmd', 'codenarc', 'eslint', 'stylelint', 'java', 'javascript', 'groovy', 'gradle code',
-    'backend code', 'frontend code', 'build code', 'tabulation checking', 'end of file checking',
-    'tab character']
+    'checkstyle', 'pmd', 'codenarc', 'eslint', 'typescript-eslint', 'tslint', 'java', 'javascript', 'groovy', 'gradle code',
+    'backend code', 'frontend code', 'java code', 'groovy code', 'javascript code', 'js code', 'typescript code', 'ts code',
+    'build code', 'gradle code', 'java', 'groovy', 'javascript', 'js', 'typescript', 'ts', 'gradle',
+    'java style', 'groovy style', 'javascript style', 'js style', 'typescript style', 'ts style', 'gradle style',
+    'tabulation checking', 'end of file checking', 'tab character']
 
   plugins {
     thePlugin {

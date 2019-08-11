@@ -29,14 +29,14 @@ class BaseStyleConfigWrapperComplementAction implements Action<Project> {
     complementer.complementCodeQualityTool(
       'checkstyle',
       CHECKSTYLE_VERSION_PROPERTY)
-      { final CheckstyleExtension codeQualityExtension -> extension.back.complement(codeQualityExtension) }
+      { final CheckstyleExtension codeQualityExtension -> extension.java.complement(codeQualityExtension) }
     complementer.complementCodeQualityTool(
       'pmd',
       PMD_VERSION_PROPERTY)
-      { final PmdExtension codeQualityExtension -> extension.back.complement(codeQualityExtension) }
+      { final PmdExtension codeQualityExtension -> extension.java.complement(codeQualityExtension) }
     complementer.complementCodeQualityTool(
       'codenarc',
       CODENARC_VERSION_PROPERTY)
-      { final CodeNarcExtension codeQualityExtension -> extension.back.complement(codeQualityExtension) }
+      { final CodeNarcExtension codeQualityExtension -> extension.java.complement(codeQualityExtension) }
   }
 }
