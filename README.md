@@ -207,11 +207,9 @@ or
 
 2 . Define a Checkstyle task to check "all" files in the project tree, e.g.: [file-lister project - build.gradle file - assessCommon task](https://github.com/gmullerb/file-lister/blob/master/build.gradle).
 
-### Backend configuration
+### Java
 
-#### Java
-
-##### Checkstyle/PMD plugin
+#### Checkstyle/PMD plugin
 
 This automatically done by `base-style-config-wrapper` if `autoComplement` is set to `true`(which is the default), if not:
 
@@ -234,7 +232,7 @@ This automatically done by `base-style-config-wrapper` if `autoComplement` is se
   baseStyleConfig.java.complement(pmd)
 ```
 
-##### Checkstyle/PMD task
+#### Checkstyle/PMD task
 
 ```gradle
   checkstyleMain {
@@ -258,9 +256,9 @@ This automatically done by `base-style-config-wrapper` if `autoComplement` is se
 > If using both, PMD should be run after Checkstyle, since Checkstyle is "lighter".  
 > A complete example in [basecode project - back project](https://github.com/gmullerb/basecode/tree/master/back).
 
-#### Groovy
+### Groovy
 
-##### Codenarc plugin
+#### Codenarc plugin
 
 This automatically done by `base-style-config-wrapper` if `autoComplement` is set to `true`(which is the default), if not:
 
@@ -276,7 +274,7 @@ This automatically done by `base-style-config-wrapper` if `autoComplement` is se
   baseStyleConfig.groovy.complement(codenarc)
 ```
 
-##### Codenarc task
+#### Codenarc task
 
 ```gradle
   codenarcMain {

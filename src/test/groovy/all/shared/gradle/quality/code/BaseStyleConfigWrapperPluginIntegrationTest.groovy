@@ -18,8 +18,12 @@ import static org.mockito.ArgumentMatchers.any
 import static org.mockito.Mockito.never
 import static org.mockito.Mockito.verify
 
+/**
+ * This is an integration test (almost an E2E) due to it will hit the real repository of 'base-style-config'
+ * access to the internet is required in order to run it.
+ */
 @CompileStatic
-final class BaseStyleConfigWrapperPluginTest {
+final class BaseStyleConfigWrapperPluginIntegrationTest {
   private final Project testProject = SpyProjectFactory.build()
 
   @Test

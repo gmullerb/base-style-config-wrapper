@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Gonzalo Müller Bravo. -->
+<!-- Licensed under the MIT License (MIT), see LICENSE.txt -->
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+  <suppress
+    files=".*Test.java"
+    checks="AvoidStaticImport|FileLength|MethodCount|MethodLength|Javadoc.*"
+  />
+  <suppress
+    files=".*Test.java"
+    id="UseOnlyMockOrSpyPrefixOnTestFiles"
+  />
+</suppressions>

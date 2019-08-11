@@ -7,6 +7,7 @@ import groovy.transform.CompileStatic
 import org.gradle.api.resources.TextResource
 
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 import static org.junit.jupiter.api.Assertions.assertEquals
@@ -31,72 +32,78 @@ class JsCodeStyleConfigTest {
       .asFile()
   }
 
-  @Test
-  void shouldGetEslintConfig() {
-    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+  @Nested
+  class EslintTest {
+    @Test
+    void shouldGetEslintConfig() {
+      final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
-    final TextResource result = config.getEslintConfig()
+      final TextResource result = config.getEslintConfig()
 
-    assertEquals(mockEslintConfig, result)
+      assertEquals(mockEslintConfig, result)
+    }
+
+    @Test
+    void shouldGetEslintConfigAsField() {
+      final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+
+      final TextResource result = config.eslintConfig
+
+      assertEquals(mockEslintConfig, result)
+    }
+
+    @Test
+    void shouldGetEslintConfigFile() {
+      final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+
+      final File result = config.getEslintConfigFile()
+
+      assertEquals(mockEslintConfigFile, result)
+    }
+
+    @Test
+    void shouldGetEslintNpmConfigArgs() {
+      doReturn('file')
+        .when(mockEslintConfigFile)
+        .getPath()
+      final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+
+      final String result = config.getEslintNpmConfigArg()
+
+      assertEquals('--eslintConfigFile=file', result)
+    }
   }
 
-  @Test
-  void shouldGetEslintConfig1() {
-    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+  @Nested
+  class TsEslintTest {
+    @Test
+    void shouldGetTsEslintConfig() {
+      final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
-    final TextResource result = config.eslintConfig
+      final TextResource result = config.getTsEslintConfig()
 
-    assertEquals(mockEslintConfig, result)
-  }
+      assertEquals(mockTsEslintConfig, result)
+    }
 
-  @Test
-  void shouldGetEslintConfigFile() {
-    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    @Test
+    void shouldGetTsEslintConfigFile() {
+      final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
-    final File result = config.getEslintConfigFile()
+      final File result = config.getTsEslintConfigFile()
 
-    assertEquals(mockEslintConfigFile, result)
-  }
+      assertEquals(mockTsEslintConfigFile, result)
+    }
 
-  @Test
-  void shouldGetEslintNpmConfigArgs() {
-    doReturn('file')
-      .when(mockEslintConfigFile)
-      .getPath()
-    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    @Test
+    void shouldGetTsEslintNpmConfigArgs() {
+      doReturn('file')
+        .when(mockTsEslintConfigFile)
+        .getPath()
+      final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
-    final String result = config.getEslintNpmConfigArg()
+      final String result = config.getTsEslintNpmConfigArg()
 
-    assertEquals('--eslintConfigFile=file', result)
-  }
-
-  @Test
-  void shouldGetTsEslintConfig() {
-    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
-
-    final TextResource result = config.getTsEslintConfig()
-
-    assertEquals(mockTsEslintConfig, result)
-  }
-
-  @Test
-  void shouldGetTsEslintConfigFile() {
-    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
-
-    final File result = config.getTsEslintConfigFile()
-
-    assertEquals(mockTsEslintConfigFile, result)
-  }
-
-  @Test
-  void shouldGetStylelintNpmConfigArgs() {
-    doReturn('file')
-      .when(mockTsEslintConfigFile)
-      .getPath()
-    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
-
-    final String result = config.getTsEslintNpmConfigArg()
-
-    assertEquals('--tsEslintConfigFile=file', result)
+      assertEquals('--tsEslintConfigFile=file', result)
+    }
   }
 }

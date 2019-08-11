@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!-- Copyright (c) 2018 Gonzalo Müller Bravo. -->
+<!-- Licensed under the MIT License (MIT), see LICENSE.txt -->
+<ruleset name="CodingRules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+  <description>
+    Java Code Rules
+  </description>
+  <rule ref="category/java/bestpractices.xml">
+    <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+    <exclude name="JUnitTestContainsTooManyAsserts"/>
+    <exclude name="JUnitTestsShouldIncludeAssert"/>
+    <exclude name="OneDeclarationPerLine"/>
+    <exclude name="SwitchStmtsShouldHaveDefault"/>
+  </rule>
+  <rule ref="category/java/bestpractices.xml/AvoidStringBufferField">
+    <priority>4</priority>
+  </rule>
+  <rule ref="category/java/codestyle.xml">
+    <exclude name="AtLeastOneConstructor"/>
+    <exclude name="AvoidFinalLocalVariable"/>
+    <exclude name="CallSuperInConstructor"/>
+    <exclude name="ConfusingTernary"/>
+    <exclude name="OnlyOneReturn"/>
+  </rule>
+  <rule ref="category/java/codestyle.xml/FieldNamingConventions">
+    <properties>
+      <property name="constantPattern" value="([A-Z](_?[A-Z0-9]+)*)|([a-z]([A-Z]?[a-z0-9]+)*[A-Z]?)"/>
+      <property name="enumConstantPattern" value="[A-Z](_?[A-Z0-9]+)*"/>
+      <property name="finalFieldPattern" value="[a-z]([A-Z]?[a-z0-9]+)*[A-Z]?"/>
+      <property name="publicConstantPattern" value="([A-Z](_?[A-Z0-9]+)*)|([a-z]([A-Z]?[a-z0-9]+)*[A-Z]?)"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+    <properties>
+      <property name="utilityClassPattern" value="^([A-Z][a-z0-9]([A-Z]?[a-z0-9]+)*)?(Factory|Mappers?|Utils?|Helper)$"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/LocalVariableNamingConventions">
+    <properties>
+      <property name="finalVarPattern" value="^K|[a-z][a-zA-Z0-9]*$"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/LongVariable">
+    <properties>
+      <property name="minimum" value="23"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/ShortClassName">
+    <properties>
+      <property name="minimum" value="3"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/ShortVariable">
+    <properties>
+      <property name="violationSuppressXPath" value=".[@Image = 'id' or @Image = 'k' or @Image = 'K']"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/ShortMethodName">
+    <properties>
+      <property name="violationSuppressXPath" value=".[@Image = 'of']"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/UselessParentheses">
+    <properties>
+      <property name="violationSuppressXPath" value=".[./ConditionalAndExpression or ./ConditionalOrExpression]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/TooManyStaticImports">
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/design.xml">
+    <exclude name="AvoidCatchingGenericException"/>
+    <exclude name="AvoidDeeplyNestedIfStmts"/>
+    <exclude name="CyclomaticComplexity"/>
+    <exclude name="DataClass"/>
+    <exclude name="ExcessiveMethodLength"/>
+    <exclude name="LawOfDemeter"/>
+    <exclude name="LoosePackageCoupling"/>
+  </rule>
+  <rule ref="category/java/design.xml/ExcessiveImports">
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'e2eTest') or ends-with(@Image,'E2eTest')]"/>
+    </properties>
+  </rule>
+
+  <rule ref="category/java/design.xml/ExcessivePublicCount">
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/design.xml/SignatureDeclareThrowsException">
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/design.xml/TooManyFields">
+    <properties>
+      <property name="maxfields" value="6"/>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/design.xml/TooManyMethods">
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/design.xml/UseUtilityClass">
+    <properties>
+      <property name="violationSuppressXPath"
+                value="/TypeDeclaration/ClassOrInterfaceDeclaration/ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/MethodDeclaration[@Name = 'main' and @Static='true' and @Public='true']"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/errorprone.xml">
+    <exclude name="AssignmentInOperand"/>
+    <exclude name="AvoidLiteralsInIfCondition"/>
+    <exclude name="AvoidMultipleUnaryOperators"/>
+    <exclude name="BadComparison"/>
+    <exclude name="DataflowAnomalyAnalysis"/>
+    <exclude name="JumbledIncrementer"/>
+    <exclude name="LoggerIsNotStaticFinal"/>
+    <exclude name="MissingBreakInSwitch"/>
+    <exclude name="NonCaseLabelInSwitchStatement"/>
+    <exclude name="NullAssignment"/>
+    <exclude name="UseLocaleWithCaseConversions"/>
+  </rule>
+  <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+    </properties>
+  </rule>
+   <rule ref="category/java/errorprone.xml/BeanMembersShouldSerialize">
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration[(child::ClassOrInterfaceDeclaration[not(child::ImplementsList) or child::ImplementsList[not(descendant::ClassOrInterfaceType[@Image='Serializable' or @Image='java.io.Serializable'])]]) and (not(child::Annotation) or not(child::Annotation/MarkerAnnotation/Name[@Image='Entity' or @Image='javax.persistence.Entity']))]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/multithreading.xml">
+    <exclude name="AvoidUsingVolatile"/>
+    <exclude name="UseConcurrentHashMap"/>
+  </rule>
+  <rule ref="category/java/performance.xml">
+    <exclude name="AvoidInstantiatingObjectsInLoops"/>
+  </rule>
+  <rule ref="category/java/security.xml"/>
+  <!-- Custom rules -->
+  <rule
+    name="AvoidFieldInjection"
+    language="java"
+    message="Do not use Field injection"
+    class="net.sourceforge.pmd.lang.rule.XPathRule">
+    <priority>3</priority>
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+      <property name="xpath">
+        <value><![CDATA[//FieldDeclaration/preceding-sibling::Annotation/MarkerAnnotation/Name[@Image='Inject' or @Image='javax.inject.Inject' or @Image='com.google.inject.Inject' or @Image='Autowired' or @Image='org.springframework.beans.factory.annotation.Autowired']]]></value>
+      </property>
+    </properties>
+  </rule>
+  <rule
+    name="LongMethodName"
+    language="java"
+    message="Avoid excessively long methods names like {0}"
+    class="net.sourceforge.pmd.lang.rule.XPathRule">
+    <priority>3</priority>
+    <properties>
+      <property name="violationSuppressXPath" value="/TypeDeclaration/ClassOrInterfaceDeclaration[ends-with(@Image,'Test')]"/>
+      <property name="xpath">
+        <value><![CDATA[//MethodDeclarator[string-length(@Image) > 23]]]></value>
+      </property>
+    </properties>
+  </rule>
+</ruleset>

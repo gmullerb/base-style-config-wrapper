@@ -1,9 +1,25 @@
 # Base Style Config Wrapper Change Log
 
+## 3.0.0 - August 2019
+
+* Breaking changes:
+  * Removes `stylelintConfig`.
+  * Renames `BaseStyleConfigWrapperExtension` `back` field to `java`, it gives more accurate context.
+  * Renames `BaseStyleConfigWrapperExtension` `front` field to `js`, it gives more accurate context.
+  * Renames `BackCodeStyleConfig` class to `JavaCodeStyleConfig`.
+    * Extracts `codenarcConfig` from `JavaCodeStyleConfig` to `GroovyCodeStyleConfig`.
+      * Adds `groovy` to `BaseStyleConfigWrapperExtension` class.
+  * Renames `FrontCodeStyleConfig` class to `JsCodeStyleConfig`.
+* Substitutes getting `base-style-config` from using Maven Artifact to direct download to avoid resolving `configuration` prematurely.
+* Adds `tsEslintConfig`.
+* Upgrades versions.
+* Updates VERSIONS_COMPATIBILITY table.
+* Updates README file.
+
 ## 2.0.0 - April 2019
 
 * Breaking changes:
-  * Moves groovy configuration from `CommonCodeStyleConfig` to `BackCodeStyleConfig`.
+  * Moves groovy configuration from `CommonCodeStyleConfig` to `JavaCodeStyleConfig`.
   * Automatically sets pmd, codenarc, checkstyle version, when properties `CHECKSTYLE_VERSION`, `PMD_VERSION` & `CODENARC_VERSION` are present, respectively.
   * Automatically complements pmd, codenarc, checkstyle when `autoComplement` is set to true (which is the default).
 * Upgrades versions.
