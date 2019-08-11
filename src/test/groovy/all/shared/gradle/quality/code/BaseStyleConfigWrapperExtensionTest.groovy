@@ -4,7 +4,7 @@ package all.shared.gradle.quality.code
 
 import all.shared.gradle.quality.code.config.JavaCodeStyleConfig
 import all.shared.gradle.quality.code.config.CommonCodeStyleConfig
-import all.shared.gradle.quality.code.config.FrontCodeStyleConfig
+import all.shared.gradle.quality.code.config.JsCodeStyleConfig
 
 import groovy.transform.CompileStatic
 
@@ -79,7 +79,7 @@ final class BaseStyleConfigWrapperExtensionTest {
       assertNotNull(result)
     } as Executable,
     {
-      final FrontCodeStyleConfig result = config.getJs()
+      final JsCodeStyleConfig result = config.getJs()
 
       assertNotNull(result)
     } as Executable])

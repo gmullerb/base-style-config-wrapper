@@ -4,7 +4,7 @@ package all.shared.gradle.quality.code
 
 import all.shared.gradle.quality.code.config.JavaCodeStyleConfig
 import all.shared.gradle.quality.code.config.CommonCodeStyleConfig
-import all.shared.gradle.quality.code.config.FrontCodeStyleConfig
+import all.shared.gradle.quality.code.config.JsCodeStyleConfig
 
 import groovy.transform.CompileStatic
 
@@ -15,14 +15,14 @@ import org.gradle.api.resources.TextResourceFactory
 class BaseStyleConfigWrapperExtension {
   final JavaCodeStyleConfig java
   final CommonCodeStyleConfig common
-  final FrontCodeStyleConfig js
+  final JsCodeStyleConfig js
 
   boolean autoComplement = true
 
   protected BaseStyleConfigWrapperExtension(
       final CommonCodeStyleConfig common,
       final JavaCodeStyleConfig java,
-      final FrontCodeStyleConfig js) {
+      final JsCodeStyleConfig js) {
     this.java = java
     this.common = common
     this.js = js
@@ -39,7 +39,7 @@ class BaseStyleConfigWrapperExtension {
         factory.fromArchiveEntry(configuration, 'java/checks-suppressions.xml'),
         factory.fromArchiveEntry(configuration, 'java/coding-rules.xml'),
         factory.fromArchiveEntry(configuration, 'groovy/groovy-rules.groovy')),
-      FrontCodeStyleConfig.of(
+      JsCodeStyleConfig.of(
         factory.fromArchiveEntry(configuration, 'js/.eslintrc.json'),
         factory.fromArchiveEntry(configuration, 'js/.typescript-eslintrc.json')))
   }

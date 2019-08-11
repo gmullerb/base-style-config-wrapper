@@ -15,7 +15,7 @@ import static org.mockito.Mockito.doReturn
 import static org.mockito.Mockito.mock
 
 @CompileStatic
-class FrontCodeStyleConfigTest {
+class JsCodeStyleConfigTest {
   private final TextResource mockEslintConfig = mock(TextResource)
   private final TextResource mockTsEslintConfig = mock(TextResource)
   private final File mockEslintConfigFile = mock(File)
@@ -33,7 +33,7 @@ class FrontCodeStyleConfigTest {
 
   @Test
   void shouldGetEslintConfig() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final TextResource result = config.getEslintConfig()
 
@@ -42,7 +42,7 @@ class FrontCodeStyleConfigTest {
 
   @Test
   void shouldGetEslintConfig1() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final TextResource result = config.eslintConfig
 
@@ -51,7 +51,7 @@ class FrontCodeStyleConfigTest {
 
   @Test
   void shouldGetEslintConfigFile() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final File result = config.getEslintConfigFile()
 
@@ -63,7 +63,7 @@ class FrontCodeStyleConfigTest {
     doReturn('file')
       .when(mockEslintConfigFile)
       .getPath()
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final String result = config.getEslintNpmConfigArg()
 
@@ -72,7 +72,7 @@ class FrontCodeStyleConfigTest {
 
   @Test
   void shouldGetTsEslintConfig() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final TextResource result = config.getTsEslintConfig()
 
@@ -81,7 +81,7 @@ class FrontCodeStyleConfigTest {
 
   @Test
   void shouldGetTsEslintConfigFile() {
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final File result = config.getTsEslintConfigFile()
 
@@ -93,7 +93,7 @@ class FrontCodeStyleConfigTest {
     doReturn('file')
       .when(mockTsEslintConfigFile)
       .getPath()
-    final FrontCodeStyleConfig config = FrontCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
+    final JsCodeStyleConfig config = JsCodeStyleConfig.of(mockEslintConfig, mockTsEslintConfig)
 
     final String result = config.getTsEslintNpmConfigArg()
 

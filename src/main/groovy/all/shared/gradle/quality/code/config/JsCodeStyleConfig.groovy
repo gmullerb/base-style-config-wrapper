@@ -7,13 +7,13 @@ import groovy.transform.CompileStatic
 import org.gradle.api.resources.TextResource
 
 @CompileStatic
-class FrontCodeStyleConfig {
+class JsCodeStyleConfig {
   final TextResource eslintConfig
   final String eslintNpmConfigArg
   final TextResource tsEslintConfig
   final String tsEslintNpmConfigArg
 
-  protected FrontCodeStyleConfig(
+  protected JsCodeStyleConfig(
       final TextResource eslintConfig,
       final String eslintNpmConfigArg,
       final TextResource tsEslintConfig,
@@ -24,10 +24,10 @@ class FrontCodeStyleConfig {
     this.tsEslintNpmConfigArg = tsEslintNpmConfigArg
   }
 
-  static final FrontCodeStyleConfig of(
+  static final JsCodeStyleConfig of(
       final TextResource eslintConfig,
       final TextResource tsEslintConfig) {
-    new FrontCodeStyleConfig(
+    new JsCodeStyleConfig(
       eslintConfig,
       "--eslintConfigFile=${eslintConfig.asFile().path}",
       tsEslintConfig,
