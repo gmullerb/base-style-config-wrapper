@@ -37,6 +37,6 @@ class BaseStyleConfigWrapperComplementAction implements Action<Project> {
     complementer.complementCodeQualityTool(
       'codenarc',
       CODENARC_VERSION_PROPERTY)
-      { final CodeNarcExtension codeQualityExtension -> extension.java.complement(codeQualityExtension) }
+      { final CodeNarcExtension codeQualityExtension -> extension.groovy.complement(codeQualityExtension) }
   }
 }

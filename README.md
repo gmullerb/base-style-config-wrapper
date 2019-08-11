@@ -266,28 +266,28 @@ This automatically done by `base-style-config-wrapper` if `autoComplement` is se
 
 ```gradle
   codenarc {
-    config = baseStyleConfig.java.codenarcConfig
+    config = baseStyleConfig.groovy.codenarcConfig
   }
 ```
 
   or (short way, exactly the same):
 
 ```groovy
-  baseStyleConfig.common.complement(codenarc)
+  baseStyleConfig.groovy.complement(codenarc)
 ```
 
 ##### Codenarc task
 
 ```gradle
   codenarcMain {
-    config = baseStyleConfig.java.codenarcConfig
+    config = baseStyleConfig.groovy.codenarcConfig
   }
 ```
 
   or (short way, exactly the same):
 
 ```gradle
-  baseStyleConfig.common.complement(codenarcMain)
+  baseStyleConfig.groovy.complement(codenarcMain)
 ```
 
 > Gradle and Groovy have almost the same set of rules, define in the same file, see [gradle-rules.groovy](https://github.com/gmullerb/base-style-config/blob/master/src/config/groovy/groovy-rules.groovy).  
@@ -349,7 +349,7 @@ Same for Typescript ESLint:
 
 ```gradle
   codenarc {
-    config = baseStyleConfig.java.codenarcConfig
+    config = baseStyleConfig.groovy.codenarcConfig
   }
 ```
 

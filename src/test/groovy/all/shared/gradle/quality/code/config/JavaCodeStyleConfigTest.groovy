@@ -9,8 +9,6 @@ import groovy.transform.CompileStatic
 import org.gradle.api.Project
 import org.gradle.api.plugins.quality.Checkstyle
 import org.gradle.api.plugins.quality.CheckstyleExtension
-import org.gradle.api.plugins.quality.CodeNarc
-import org.gradle.api.plugins.quality.CodeNarcExtension
 import org.gradle.api.plugins.quality.Pmd
 import org.gradle.api.plugins.quality.PmdExtension
 import org.gradle.api.resources.TextResource
@@ -31,7 +29,7 @@ class JavaCodeStyleConfigTest {
   @Test
   void shouldGetCheckstyleConfig() {
     final TextResource mockCheckstyleConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, null, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, null, null)
 
     final TextResource result = config.getCheckstyleConfig()
 
@@ -41,7 +39,7 @@ class JavaCodeStyleConfigTest {
   @Test
   void shouldGetCheckstyleConfigFile() {
     final TextResource mockCheckstyleConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, null, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, null, null)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockCheckstyleConfig)
@@ -55,7 +53,7 @@ class JavaCodeStyleConfigTest {
   @Test
   void shouldGetCheckstyleSuppressionConfig() {
     final TextResource mockCheckstyleSuppressionConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null)
 
     final TextResource result = config.getCheckstyleSuppressionConfig()
 
@@ -65,7 +63,7 @@ class JavaCodeStyleConfigTest {
   @Test
   void shouldGetCheckstyleSuppressionConfigFile() {
     final TextResource mockCheckstyleSuppressionConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, mockCheckstyleSuppressionConfig, null)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockCheckstyleSuppressionConfig)
@@ -79,7 +77,7 @@ class JavaCodeStyleConfigTest {
   @Test
   void shouldGetPmdConfig() {
     final TextResource mockPmdConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig)
 
     final TextResource result = config.getPmdConfig()
 
@@ -89,7 +87,7 @@ class JavaCodeStyleConfigTest {
   @Test
   void shouldGetPmdConfigFile() {
     final TextResource mockPmdConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockPmdConfig)
@@ -104,7 +102,7 @@ class JavaCodeStyleConfigTest {
   void shouldComplementCheckstyle() {
     final TextResource mockCheckstyleConfig = mock(TextResource)
     final TextResource mockCheckstyleSuppressionConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, mockCheckstyleSuppressionConfig, null, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(mockCheckstyleConfig, mockCheckstyleSuppressionConfig, null)
     final File mockFile = mock(File)
     doReturn(mockFile)
       .when(mockCheckstyleSuppressionConfig)
@@ -136,7 +134,7 @@ class JavaCodeStyleConfigTest {
   @Test
   void shouldComplementPmd() {
     final TextResource mockPmdConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig, null)
+    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, mockPmdConfig)
     final Project testProject = SpyProjectFactory.build()
 
     assertAll([
@@ -155,53 +153,6 @@ class JavaCodeStyleConfigTest {
 
       assertTrue(task.ruleSets.isEmpty())
       assertEquals(mockPmdConfig, task.ruleSetConfig)
-    } as Executable])
-  }
-
-  @Test
-  void shouldGetCodenarcConfig() {
-    final TextResource mockCodenarcConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, null, mockCodenarcConfig)
-
-    final TextResource result = config.getCodenarcConfig()
-
-    assertEquals(mockCodenarcConfig, result)
-  }
-
-  @Test
-  void shouldGetCodenarcConfigFile() {
-    final TextResource mockCodenarcConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, null, mockCodenarcConfig)
-    final File mockFile = mock(File)
-    doReturn(mockFile)
-      .when(mockCodenarcConfig)
-      .asFile()
-
-    final File result = config.getCodenarcConfigFile()
-
-    assertEquals(mockFile, result)
-  }
-
-  @Test
-  void shouldComplement() {
-    final TextResource mockCodenarcConfig = mock(TextResource)
-    final JavaCodeStyleConfig config = new JavaCodeStyleConfig(null, null, null, mockCodenarcConfig)
-    final Project testProject = SpyProjectFactory.build()
-
-    assertAll([
-    {
-      final CodeNarcExtension extension = new CodeNarcExtension(testProject)
-
-      config.complement(extension)
-
-      assertEquals(mockCodenarcConfig, extension.config)
-    } as Executable,
-    {
-      final CodeNarc task = testProject.tasks.create('shouldComplement', CodeNarc)
-
-      config.complement(task)
-
-      assertEquals(mockCodenarcConfig, task.config)
     } as Executable])
   }
 }

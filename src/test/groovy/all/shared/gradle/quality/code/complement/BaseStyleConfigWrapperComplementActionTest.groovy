@@ -3,6 +3,7 @@
 package all.shared.gradle.quality.code.complement
 
 import all.shared.gradle.quality.code.BaseStyleConfigWrapperExtension
+import all.shared.gradle.quality.code.config.GroovyCodeStyleConfig
 import all.shared.gradle.quality.code.config.JavaCodeStyleConfig
 import all.shared.gradle.testfixtures.SpyProjectFactory
 
@@ -33,12 +34,12 @@ final class BaseStyleConfigWrapperComplementActionTest {
   private final TextResource checkstyleSuppressionConfig = mock(TextResource)
   private final TextResource pmdConfig = mock(TextResource)
   private final TextResource codenarcConfig = mock(TextResource)
-  private final JavaCodeStyleConfig spyBackConfig = spy(new JavaCodeStyleConfig(
+  private final JavaCodeStyleConfig spyJavaConfig = spy(new JavaCodeStyleConfig(
     checkstyleConfig,
     checkstyleSuppressionConfig,
-    pmdConfig,
-    codenarcConfig))
-  private final BaseStyleConfigWrapperExtension extension = new BaseStyleConfigWrapperExtension(null, spyBackConfig, null) { }
+    pmdConfig))
+  private final GroovyCodeStyleConfig spyGroovyConfig = spy(new GroovyCodeStyleConfig(codenarcConfig))
+  private final BaseStyleConfigWrapperExtension extension = new BaseStyleConfigWrapperExtension(null, spyJavaConfig, spyGroovyConfig, null) { }
   private final BaseStyleConfigWrapperComplementAction action = new BaseStyleConfigWrapperComplementAction(extension)
 
   @Test
@@ -101,11 +102,11 @@ final class BaseStyleConfigWrapperComplementActionTest {
   void shouldNotComplementExtensionsWhenExtensionIsNotPresent() {
     action.execute(spyProject)
 
-    verify(spyBackConfig, never())
+    verify(spyJavaConfig, never())
       .complement(any(CheckstyleExtension))
-    verify(spyBackConfig, never())
+    verify(spyJavaConfig, never())
       .complement(any(PmdExtension))
-    verify(spyBackConfig, never())
+    verify(spyGroovyConfig, never())
       .complement(any(CodeNarcExtension))
   }
 }

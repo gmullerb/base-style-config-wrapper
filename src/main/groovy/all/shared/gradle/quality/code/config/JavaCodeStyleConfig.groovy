@@ -7,8 +7,6 @@ import groovy.transform.CompileStatic
 import org.gradle.api.resources.TextResource
 import org.gradle.api.plugins.quality.Checkstyle
 import org.gradle.api.plugins.quality.CheckstyleExtension
-import org.gradle.api.plugins.quality.CodeNarc
-import org.gradle.api.plugins.quality.CodeNarcExtension
 import org.gradle.api.plugins.quality.Pmd
 import org.gradle.api.plugins.quality.PmdExtension
 
@@ -17,17 +15,14 @@ class JavaCodeStyleConfig {
   final TextResource checkstyleConfig
   final TextResource checkstyleSuppressionConfig
   final TextResource pmdConfig
-  final TextResource codenarcConfig
 
   JavaCodeStyleConfig(
       final TextResource checkstyleConfig,
       final TextResource checkstyleSuppressionConfig,
-      final TextResource pmdConfig,
-      final TextResource codenarcConfig) {
+      final TextResource pmdConfig) {
     this.checkstyleConfig = checkstyleConfig
     this.checkstyleSuppressionConfig = checkstyleSuppressionConfig
     this.pmdConfig = pmdConfig
-    this.codenarcConfig = codenarcConfig
   }
 
   File getCheckstyleConfigFile() { checkstyleConfig.asFile() }
@@ -35,8 +30,6 @@ class JavaCodeStyleConfig {
   File getCheckstyleSuppressionConfigFile() { checkstyleSuppressionConfig.asFile() }
 
   File getPmdConfigFile() { pmdConfig.asFile() }
-
-  File getCodenarcConfigFile() { codenarcConfig.asFile() }
 
   void complement(final CheckstyleExtension extension) {
     extension.config = checkstyleConfig
@@ -57,13 +50,4 @@ class JavaCodeStyleConfig {
     task.ruleSets = [] // required with new PMD version
     task.ruleSetConfig = pmdConfig
   }
-
-  void complement(final CodeNarcExtension extension) {
-    extension.config = codenarcConfig
-  }
-
-  void complement(final CodeNarc task) {
-    task.config = codenarcConfig
-  }
-
 }
