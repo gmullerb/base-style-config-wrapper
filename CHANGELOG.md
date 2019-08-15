@@ -1,5 +1,9 @@
 # Base Style Config Wrapper Change Log
 
+## 3.0.1 - August 2019
+
+* Sets Compatibility with Java version 8 or higher.
+
 ## 3.0.0 - August 2019
 
 * Breaking changes:

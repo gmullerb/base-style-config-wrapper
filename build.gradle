@@ -39,6 +39,11 @@ consoleReporter {
   }
 }
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_1_8
+  targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 pluginBundle {
   website = PLUGIN_SITE
   vcsUrl = PLUGIN_SITE
